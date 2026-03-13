@@ -770,22 +770,44 @@ footer p { font-size:13px; color:rgba(255,255,255,0.4); margin-top:6px; }
   .sticky-cta { display:block; }
   nav ul { display:none; }
   .nav-whatsapp { display:none; }
+  /* Fix nav header overflow */
+  nav { padding:0 12px; gap:8px; }
+  .nav-logo img { height:48px; }
+  .nav-right { gap:8px; flex-shrink:0; }
+  .nav-btn { padding:8px 14px; font-size:11px; white-space:nowrap; }
+  .nav-city-badge { padding:3px 8px; font-size:9px; letter-spacing:1px; margin-left:6px; }
+  /* Hero CTAs stack vertically */
+  .hero { padding:90px 5% 50px; }
+  .hero h1 { font-size:clamp(28px, 7vw, 42px); }
+  .hero-ctas { flex-direction:column; align-items:center; gap:12px; }
+  .btn-primary { width:100%; justify-content:center; font-size:16px; padding:16px 24px; }
+  .btn-whatsapp { width:100%; justify-content:center; font-size:14px; padding:14px 24px; }
+  .hero-sub { font-size:15px; }
+  .hero-stats { gap:24px; }
+  .stat-num { font-size:28px; }
+  /* Course cards full width (one at a time) */
+  .specialization { padding:0 16px; }
+  .carousel-wrap { margin:0; }
+  .courses-grid { gap:14px; padding:10px 16px 16px; }
+  .glow-wrap { flex:0 0 calc(100% - 32px); min-height:180px; }
+  .course-card { min-height:180px; padding:22px 20px 18px; }
+  .carousel-arrow { display:none !important; }
+  .carousel-wrap::before, .carousel-wrap::after { width:20px; }
+  .spec-hero { height:120px; padding:0 16px; border-radius:14px; }
+  .spec-hero-content h3 { font-size:20px; }
+  .spec-hero-illustration { font-size:50px; right:12px; }
+  .spec-name { font-size:20px; }
+  /* CTA button centered and full width */
+  .spec-cta-row { flex-direction:column; align-items:center; gap:10px; }
+  .spec-cta-btn { width:100%; text-align:center; justify-content:center; font-size:14px; padding:14px 24px; }
+  .courses-urgency { font-size:12px; }
+  /* General */
+  .section { padding:60px 5%; }
   .form-wrapper { grid-template-columns:1fr; gap:40px; }
   .strip-stat { border-right:none; border-bottom:1px solid var(--border); }
   .strip-stat:last-child { border-bottom:none; }
   .stats-strip { flex-direction:column; align-items:center; }
-  .courses-grid { gap:14px; padding:10px 4% 16px; }
-  .glow-wrap { flex:0 0 260px; min-height:180px; }
-  .course-card { min-height:180px; padding:22px 20px 18px; }
-  .carousel-arrow { display:none !important; }
-  .carousel-wrap::before, .carousel-wrap::after { width:30px; }
-  .spec-name { font-size:20px; }
-  .spec-cta-row { flex-direction:column; align-items:flex-start; gap:8px; }
-  .courses-urgency { font-size:12px; }
   .float-whatsapp { bottom:80px; }
-  .hero h1 { font-size:clamp(30px, 8vw, 48px); }
-  .hero-stats { gap:24px; }
-  .stat-num { font-size:28px; }
   .results-grid { gap:24px; }
   .result-num { font-size:36px; }
   .testimonials-grid { grid-template-columns:1fr; }
@@ -793,6 +815,10 @@ footer p { font-size:13px; color:rgba(255,255,255,0.4); margin-top:6px; }
 }
 @media(max-width:480px) {
   .benefits-grid { grid-template-columns:1fr; }
+  .nav-logo img { height:40px; }
+  .nav-btn { padding:7px 10px; font-size:10px; }
+  .nav-city-badge { padding:2px 6px; font-size:8px; }
+  .hero h1 { font-size:clamp(24px, 7vw, 36px); }
 }
 </style>
 </head>
