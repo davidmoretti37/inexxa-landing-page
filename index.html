@@ -808,8 +808,9 @@ footer p { font-size:13px; color:rgba(255,255,255,0.4); margin-top:6px; }
   .strip-stat:last-child { border-bottom:none; }
   .stats-strip { flex-direction:column; align-items:center; }
   .float-whatsapp { bottom:80px; }
-  .results-grid { gap:24px; }
-  .result-num { font-size:36px; }
+  .results-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px 16px; justify-items:center; }
+  .results-strip { padding:48px 5%; }
+  .result-num { font-size:32px; }
   .testimonials-grid { grid-template-columns:1fr; }
   .benefits-grid { grid-template-columns:1fr 1fr; }
 }
