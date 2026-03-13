@@ -1364,6 +1364,7 @@ function selectCourse(name) {
 const isIpatinga = window.location.hostname.startsWith('ipatinga');
 const loc = isIpatinga ? {
   city: 'Ipatinga',
+  region: 'Vale do A\u00e7o',
   waPhone: '5531987462012',
   badge: 'Vagas abertas em Ipatinga \u2014 novas turmas',
   h1: 'Sua Carreira Profissional<br><span class="highlight">Come\u00e7a em Ipatinga</span>',
@@ -1381,6 +1382,7 @@ const loc = isIpatinga ? {
   footerTagline: 'Formando profissionais prontos pro mercado no Vale do A\u00e7o.',
 } : {
   city: 'Uberl\u00e2ndia',
+  region: 'Uberl\u00e2ndia',
   waPhone: '5534999315390',
   badge: 'Vagas abertas em Uberl\u00e2ndia \u2014 novas turmas',
   h1: 'Forma\u00e7\u00e3o Profissional<br>que <span class="highlight">Coloca Voc\u00ea no Mercado</span>',
@@ -1399,7 +1401,7 @@ const loc = isIpatinga ? {
 };
 
 /* Apply location text */
-document.getElementById('loc-city-badge').textContent = 'Unidade ' + loc.city;
+document.getElementById('loc-city-badge').textContent = 'Unidade ' + loc.region;
 document.getElementById('loc-badge').innerHTML = '<span class="badge-dot"></span> ' + loc.badge;
 document.getElementById('loc-h1').innerHTML = loc.h1;
 document.getElementById('loc-hero-sub').innerHTML = loc.heroSub;
