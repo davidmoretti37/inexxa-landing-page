@@ -1397,11 +1397,60 @@ function selectCourse(name) {
   document.getElementById('contato').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* Location config */
-const isIpatinga = window.location.hostname.startsWith('ipatinga');
+/* Which unit to show.
+ *
+ * This used to be hostname-only: hostname.startsWith('ipatinga'). The site is
+ * served from inexxa.vercel.app and there is no ipatinga.* domain, so that test
+ * was ALWAYS false and the Ipatinga unit was unreachable. Every visitor got the
+ * Uberlandia page, which means every Ipatinga lead was sent to the Uberlandia
+ * WhatsApp. From the outside that looks like Ipatinga simply not converting.
+ *
+ * Hostname still wins when a real domain exists. Until then a path or a query
+ * string selects the unit, so campaigns can point at /ipatinga (or
+ * ?unidade=ipatinga) and reach the right page and the right phone number today.
+ * The choice is remembered, so clicking around the page does not silently drop
+ * someone back onto the other unit.
+ */
+const UNIT_KEY = 'inexxa_unidade';
+
+function pickUnit() {
+  const named = (value) => {
+    const v = String(value || '').toLowerCase();
+    if (v === 'ipatinga') return 'ipatinga';
+    if (v === 'uberlandia' || v === 'uberlândia') return 'uberlandia';
+    return null;
+  };
+
+  // 1. Explicit request always wins, and is remembered.
+  const qs = new URLSearchParams(window.location.search);
+  const asked = named(qs.get('unidade')) || named(qs.get('unit'));
+  if (asked) {
+    try { localStorage.setItem(UNIT_KEY, asked); } catch (e) { /* private mode */ }
+    return asked;
+  }
+
+  // 2. A real subdomain, once one exists.
+  if (window.location.hostname.toLowerCase().startsWith('ipatinga')) return 'ipatinga';
+
+  // 3. A clean path, /ipatinga — see vercel.json, which serves the page there.
+  const fromPath = named((window.location.pathname.split('/')[1] || '').trim());
+  if (fromPath) {
+    try { localStorage.setItem(UNIT_KEY, fromPath); } catch (e) { /* private mode */ }
+    return fromPath;
+  }
+
+  // 4. Whatever they chose last time.
+  try {
+    const saved = named(localStorage.getItem(UNIT_KEY));
+    if (saved) return saved;
+  } catch (e) { /* private mode */ }
+
+  return 'uberlandia';
+}
+
+const isIpatinga = pickUnit() === 'ipatinga';
 const loc = isIpatinga ? {
   city: 'Ipatinga',
-  region: 'Vale do A\u00e7o',
   waPhone: '5531987462012',
   badge: 'Vagas abertas em Ipatinga \u2014 novas turmas',
   h1: 'Sua Carreira Profissional<br><span class="highlight">Come\u00e7a em Ipatinga</span>',
@@ -1419,12 +1468,11 @@ const loc = isIpatinga ? {
   footerTagline: 'Formando profissionais prontos pro mercado no Vale do A\u00e7o.',
 } : {
   city: 'Uberl\u00e2ndia',
-  region: 'Uberl\u00e2ndia',
   waPhone: '5534999315390',
   badge: 'Vagas abertas em Uberl\u00e2ndia \u2014 novas turmas',
   h1: 'Forma\u00e7\u00e3o Profissional<br>que <span class="highlight">Coloca Voc\u00ea no Mercado</span>',
-  heroSub: 'Cursos profissionalizantes com <strong>m\u00e9todo focado no mercado de trabalho</strong>. Para jovens e adultos do Tri\u00e2ngulo Mineiro que querem conquistar o primeiro emprego ou dar o pr\u00f3ximo passo na carreira.',
-  benefitsTitle: 'Forma\u00e7\u00e3o que <em>abre portas</em> no Tri\u00e2ngulo Mineiro',
+  heroSub: 'Cursos profissionalizantes com <strong>m\u00e9todo focado no mercado de trabalho</strong>. Para jovens e adultos de Uberl\u00e2ndia que querem conquistar o primeiro emprego ou dar o pr\u00f3ximo passo na carreira.',
+  benefitsTitle: 'Forma\u00e7\u00e3o que <em>abre portas</em> em Uberl\u00e2ndia',
   benefitsSub: 'N\u00e3o \u00e9 s\u00f3 um curso. \u00c9 o caminho mais r\u00e1pido entre onde voc\u00ea est\u00e1 e onde o mercado precisa de voc\u00ea.',
   testimonialsTitle: 'Hist\u00f3rias de quem <em>transformou</em> sua carreira',
   testimonialsSub: 'Nossos alunos est\u00e3o no mercado. O pr\u00f3ximo pode ser voc\u00ea.',
