@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/ipatinga", "destination": "/index.html" },
-    { "source": "/uberlandia", "destination": "/index.html" }
-  ],
-  "cleanUrls": true
+    { "source": "/ipatinga", "destination": "/" },
+    { "source": "/uberlandia", "destination": "/" }
+  ]
 }
